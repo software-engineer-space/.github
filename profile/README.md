@@ -8,24 +8,17 @@ organization.
 ## How to claim `your-domain.software-engineer.space`
 
 In order to register `your-domain` subdomain and have it assigned to your user on GitHub (`your-github-username` in the 
-following example), create a PR in the 
-[software-engineer.space-terraform repository](https://github.com/software-engineer-space/software-engineer.space-terraform)
-which adds to the root of the repository a file named `your-domain.software-engineer.space.tf`.
+following example), create a PR in the [`software-engineer.space-terraform` repository](https://github.com/software-engineer-space/software-engineer.space-terraform)
+which adds to the [`spaces` variable](https://github.com/software-engineer-space/software-engineer.space-terraform/blob/main/spaces.tf#L2)
+an entry with the following shape
 
-The content of the file should be the following:
 ```terraform
-module "your-domain" {
-  source             = "./modules/software-engineer-space"
-  domain_prefix      = "your-domain"
-  github_handle      = "your-github-username"
-  cloudflare_zone_id = cloudflare_zone.software-engineer-space.id
-
-  providers = {
-    cloudflare = cloudflare
-    github = github
-  }
+{
+github_handle = "your-github-username"
+dns_prefix = "your-domain"
 }
 ```
+
 Whenever possible the PR will be merged and changes applied.
 
 Your GitHub user will be assigned with the permissions to write on the newly created `your-domain.sogware-engineer.space`
